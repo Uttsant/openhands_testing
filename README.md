@@ -1,6 +1,36 @@
-# Getting Started with Create React App
+# React TODO App with localStorage
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple, frontend-only TODO application built with React that stores all state in localStorage.
+
+## Features
+
+- Add new tasks
+- Mark tasks as completed
+- Delete tasks
+- Filter tasks (All, Active, Completed)
+- Clear all completed tasks
+- Persistent storage using localStorage
+- Responsive design
+
+## How it Works
+
+This application uses React's state management along with the browser's localStorage API to create a persistent TODO list application. All data is stored locally in the user's browser, so no backend or database is required.
+
+### Key Components
+
+1. **State Management**: Uses React's `useState` hook to manage the application state
+2. **Persistence**: Uses `localStorage` to save and retrieve TODO items
+3. **Filtering**: Allows filtering tasks by their completion status
+
+### localStorage Implementation
+
+The app uses a custom React hook called `useLocalStorage` to handle localStorage operations:
+
+1. The hook provides a state variable and setter function similar to React's `useState`
+2. It automatically loads data from localStorage on initial render
+3. It automatically saves data to localStorage whenever the state changes
+4. It handles errors gracefully and provides fallback values
+5. It even synchronizes state across browser tabs via the storage event
 
 ## Available Scripts
 
@@ -9,7 +39,7 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [http://localhost:12000](http://localhost:12000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
