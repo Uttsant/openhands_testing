@@ -11,6 +11,9 @@ A simple, frontend-only TODO application built with React that stores all state 
 - Clear all completed tasks
 - Persistent storage using localStorage
 - Responsive design
+- Optional due dates for tasks
+- Sort tasks by due date
+- Theme toggle (Light/Dark mode)
 
 ## How it Works
 
@@ -21,6 +24,8 @@ This application uses React's state management along with the browser's localSto
 1. **State Management**: Uses React's `useState` hook to manage the application state
 2. **Persistence**: Uses `localStorage` to save and retrieve TODO items
 3. **Filtering**: Allows filtering tasks by their completion status
+4. **Due Dates**: Allows adding optional due dates to tasks and sorting by due date
+5. **Theming**: Supports light and dark themes with persistent user preference
 
 ### localStorage Implementation
 
@@ -31,6 +36,21 @@ The app uses a custom React hook called `useLocalStorage` to handle localStorage
 3. It automatically saves data to localStorage whenever the state changes
 4. It handles errors gracefully and provides fallback values
 5. It even synchronizes state across browser tabs via the storage event
+
+### Due Dates Feature
+
+The app allows users to:
+- Add an optional due date when creating a task
+- View due dates for each task in the list
+- Sort tasks by due date (earliest first)
+
+### Theme Toggle Feature
+
+The app includes a theme toggle that:
+- Switches between light mode (default) and dark mode
+- Persists the user's theme preference in localStorage
+- Automatically applies the saved theme on page load
+- Provides a visually distinct UI for each theme
 
 ## Available Scripts
 
