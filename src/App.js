@@ -5,17 +5,21 @@ import './App.css';
 function App() {
   const [todos, setTodos] = useLocalStorage('todos', []);
   const [inputValue, setInputValue] = useState('');
+  const [dueDate, setDueDate] = useState('');
   const [filter, setFilter] = useState('all'); // 'all', 'active', 'completed'
+  const [sortByDueDate, setSortByDueDate] = useState(false);
 
   const addTodo = () => {
     if (inputValue.trim() !== '') {
       const newTodo = {
         id: Date.now(),
         text: inputValue,
-        completed: false
+        completed: false,
+        dueDate: dueDate || null
       };
       setTodos([...todos, newTodo]);
       setInputValue('');
+      setDueDate('');
     }
   };
 
@@ -35,11 +39,21 @@ function App() {
     setTodos(todos.filter(todo => !todo.completed));
   };
 
-  const filteredTodos = todos.filter(todo => {
+  let filteredTodos = todos.filter(todo => {
     if (filter === 'active') return !todo.completed;
     if (filter === 'completed') return todo.completed;
     return true; // 'all'
   });
+  
+  // Sort by due date if enabled
+  if (sortByDueDate) {
+    filteredTodos = [...filteredTodos].sort((a, b) => {
+      // Put todos without due dates at the end
+      if (!a.dueDate) return 1;
+      if (!b.dueDate) return -1;
+      return new Date(a.dueDate) - new Date(b.dueDate);
+    });
+  }
 
   const activeTodosCount = todos.filter(todo => !todo.completed).length;
 
@@ -55,6 +69,13 @@ function App() {
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && addTodo()}
             placeholder="What needs to be done?"
+            className="text-input"
+          />
+          <input
+            type="date"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+            className="date-input"
           />
           <button onClick={addTodo}>Add</button>
         </div>
@@ -69,7 +90,14 @@ function App() {
                     checked={todo.completed}
                     onChange={() => toggleTodo(todo.id)}
                   />
-                  <span>{todo.text}</span>
+                  <div className="todo-content">
+                    <span className="todo-text">{todo.text}</span>
+                    {todo.dueDate && (
+                      <span className="todo-due-date">
+                        Due: {new Date(todo.dueDate).toLocaleDateString()}
+                      </span>
+                    )}
+                  </div>
                   <button onClick={() => deleteTodo(todo.id)}>Delete</button>
                 </li>
               ))}
@@ -96,6 +124,12 @@ function App() {
                   onClick={() => setFilter('completed')}
                 >
                   Completed
+                </button>
+                <button 
+                  className={sortByDueDate ? 'active' : ''}
+                  onClick={() => setSortByDueDate(!sortByDueDate)}
+                >
+                  {sortByDueDate ? 'Sorted by Due Date' : 'Sort by Due Date'}
                 </button>
               </div>
               
