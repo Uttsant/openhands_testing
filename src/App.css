@@ -1,23 +1,4 @@
-:root {
-  /* Light theme variables */
-  --light-bg-color: #f5f5f5;
-  --light-app-bg: white;
-  --light-text-color: #333;
-  --light-border-color: #ddd;
-  --light-shadow: rgba(0, 0, 0, 0.1);
-  --light-completed-color: #888;
-  --light-hover-bg: #f5f5f5;
-  
-  /* Dark theme variables */
-  --dark-bg-color: #222;
-  --dark-app-bg: #333;
-  --dark-text-color: #eee;
-  --dark-border-color: #555;
-  --dark-shadow: rgba(0, 0, 0, 0.3);
-  --dark-completed-color: #aaa;
-  --dark-hover-bg: #444;
-}
-
+/* Base styles */
 body {
   margin: 0;
   padding: 0;
@@ -25,13 +6,13 @@ body {
 }
 
 body.light {
-  background-color: var(--light-bg-color);
-  color: var(--light-text-color);
+  background-color: #f5f5f5;
+  color: #333;
 }
 
 body.dark {
-  background-color: var(--dark-bg-color);
-  color: var(--dark-text-color);
+  background-color: #222;
+  color: #eee;
 }
 
 .App {
@@ -39,60 +20,77 @@ body.dark {
   justify-content: center;
   padding: 20px;
   font-family: Arial, sans-serif;
-  transition: all 0.3s ease;
+  min-height: 100vh;
+  transition: background-color 0.3s ease;
+}
+
+.App.dark {
+  background-color: #222;
+}
+
+.App.light {
+  background-color: #f5f5f5;
 }
 
 .todo-app {
   width: 500px;
   max-width: 100%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
   transition: all 0.3s ease;
 }
 
-.light .todo-app {
-  background-color: var(--light-app-bg);
-  box-shadow: 0 2px 10px var(--light-shadow);
-  color: var(--light-text-color);
+.App.light .todo-app {
+  background-color: white;
+  color: #333;
 }
 
-.dark .todo-app {
-  background-color: var(--dark-app-bg);
-  box-shadow: 0 2px 10px var(--dark-shadow);
-  color: var(--dark-text-color);
-}
-
-.app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+.App.dark .todo-app {
+  background-color: #333;
+  color: #eee;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 h1 {
-  margin: 0;
-  color: inherit;
+  text-align: center;
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
 }
 
+.App.light h1 {
+  color: #333;
+}
+
+.App.dark h1 {
+  color: #eee;
+}
+
+/* Theme toggle button */
 .theme-toggle {
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 5px;
-  border-radius: 50%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease;
+  justify-content: flex-end;
+  margin-bottom: 15px;
 }
 
-.light .theme-toggle {
-  background-color: #f0f0f0;
+.theme-toggle button {
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
 }
 
-.dark .theme-toggle {
-  background-color: #444;
+.App.light .theme-toggle button {
+  background-color: #333;
+  color: white;
+  border: 1px solid #333;
+}
+
+.App.dark .theme-toggle button {
+  background-color: #f5f5f5;
+  color: #333;
+  border: 1px solid #f5f5f5;
 }
 
 .add-todo {
@@ -103,22 +101,22 @@ h1 {
 .add-todo .text-input {
   flex: 1;
   padding: 10px;
+  border-radius: 4px 0 0 0;
   font-size: 16px;
   border-bottom: none;
-  border-radius: 4px 0 0 0;
   transition: all 0.3s ease;
 }
 
-.light .add-todo .text-input {
-  border: 1px solid var(--light-border-color);
-  background-color: var(--light-app-bg);
-  color: var(--light-text-color);
+.App.light .add-todo .text-input {
+  border: 1px solid #ddd;
+  background-color: white;
+  color: #333;
 }
 
-.dark .add-todo .text-input {
-  border: 1px solid var(--dark-border-color);
-  background-color: var(--dark-app-bg);
-  color: var(--dark-text-color);
+.App.dark .add-todo .text-input {
+  border: 1px solid #555;
+  background-color: #444;
+  color: #eee;
 }
 
 .add-todo .date-input {
@@ -130,30 +128,43 @@ h1 {
   transition: all 0.3s ease;
 }
 
-.light .add-todo .date-input {
-  border: 1px solid var(--light-border-color);
-  background-color: var(--light-app-bg);
-  color: var(--light-text-color);
+.App.light .add-todo .date-input {
+  border: 1px solid #ddd;
+  background-color: white;
+  color: #333;
 }
 
-.dark .add-todo .date-input {
-  border: 1px solid var(--dark-border-color);
-  background-color: var(--dark-app-bg);
-  color: var(--dark-text-color);
+.App.dark .add-todo .date-input {
+  border: 1px solid #555;
+  background-color: #444;
+  color: #eee;
 }
 
 .add-todo button {
   padding: 10px 15px;
-  background-color: #4caf50;
-  color: white;
   border: none;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
   font-size: 16px;
+  transition: all 0.3s ease;
 }
 
-.add-todo button:hover {
+.App.light .add-todo button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.App.dark .add-todo button {
+  background-color: #388e3c;
+  color: white;
+}
+
+.App.light .add-todo button:hover {
   background-color: #45a049;
+}
+
+.App.dark .add-todo button:hover {
+  background-color: #2e7d32;
 }
 
 .todo-list {
@@ -169,11 +180,11 @@ h1 {
   transition: all 0.3s ease;
 }
 
-.light .todo-list li {
+.App.light .todo-list li {
   border-bottom: 1px solid #eee;
 }
 
-.dark .todo-list li {
+.App.dark .todo-list li {
   border-bottom: 1px solid #444;
 }
 
@@ -181,14 +192,14 @@ h1 {
   border-bottom: none;
 }
 
-.light .todo-list li.completed span {
+.App.light .todo-list li.completed span {
   text-decoration: line-through;
-  color: var(--light-completed-color);
+  color: #888;
 }
 
-.dark .todo-list li.completed span {
+.App.dark .todo-list li.completed span {
   text-decoration: line-through;
-  color: var(--dark-completed-color);
+  color: #777;
 }
 
 .todo-list li input[type="checkbox"] {
@@ -211,25 +222,38 @@ h1 {
   transition: color 0.3s ease;
 }
 
-.light .todo-list li .todo-due-date {
-  color: var(--light-completed-color);
+.App.light .todo-list li .todo-due-date {
+  color: #888;
 }
 
-.dark .todo-list li .todo-due-date {
-  color: var(--dark-completed-color);
+.App.dark .todo-list li .todo-due-date {
+  color: #aaa;
 }
 
 .todo-list li button {
   padding: 5px 10px;
-  background-color: #f44336;
-  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.todo-list li button:hover {
+.App.light .todo-list li button {
+  background-color: #f44336;
+  color: white;
+}
+
+.App.dark .todo-list li button {
   background-color: #d32f2f;
+  color: white;
+}
+
+.App.light .todo-list li button:hover {
+  background-color: #d32f2f;
+}
+
+.App.dark .todo-list li button:hover {
+  background-color: #c62828;
 }
 
 .todo-footer {
@@ -243,11 +267,11 @@ h1 {
   transition: all 0.3s ease;
 }
 
-.light .todo-footer {
+.App.light .todo-footer {
   border-top: 1px solid #eee;
 }
 
-.dark .todo-footer {
+.App.dark .todo-footer {
   border-top: 1px solid #444;
 }
 
@@ -260,52 +284,56 @@ h1 {
 
 .filters button {
   padding: 5px 10px;
-  background-color: transparent;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.light .filters button {
-  border: 1px solid var(--light-border-color);
-  color: var(--light-text-color);
+.App.light .filters button {
+  background-color: transparent;
+  border: 1px solid #ddd;
+  color: #333;
 }
 
-.dark .filters button {
-  border: 1px solid var(--dark-border-color);
-  color: var(--dark-text-color);
+.App.dark .filters button {
+  background-color: transparent;
+  border: 1px solid #555;
+  color: #eee;
 }
 
-.light .filters button.active {
+.App.light .filters button.active {
   border-color: #4caf50;
   color: #4caf50;
 }
 
-.dark .filters button.active {
-  border-color: #6abf6e;
-  color: #6abf6e;
+.App.dark .filters button.active {
+  border-color: #388e3c;
+  color: #4caf50;
 }
 
 .todo-footer button:last-child {
   padding: 5px 10px;
-  background-color: transparent;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.light .todo-footer button:last-child {
-  border: 1px solid var(--light-border-color);
+.App.light .todo-footer button:last-child {
+  background-color: transparent;
+  border: 1px solid #ddd;
+  color: #333;
 }
 
-.dark .todo-footer button:last-child {
-  border: 1px solid var(--dark-border-color);
+.App.dark .todo-footer button:last-child {
+  background-color: transparent;
+  border: 1px solid #555;
+  color: #eee;
 }
 
-.light .todo-footer button:last-child:hover {
-  background-color: var(--light-hover-bg);
+.App.light .todo-footer button:last-child:hover {
+  background-color: #f5f5f5;
 }
 
-.dark .todo-footer button:last-child:hover {
-  background-color: var(--dark-hover-bg);
+.App.dark .todo-footer button:last-child:hover {
+  background-color: #444;
 }

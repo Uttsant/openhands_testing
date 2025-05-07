@@ -1,23 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import useLocalStorage from './useLocalStorage';
+import { ThemeContext } from './ThemeContext';
 import './App.css';
 
 function App() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const [todos, setTodos] = useLocalStorage('todos', []);
-  const [theme, setTheme] = useLocalStorage('theme', 'light'); // 'light' or 'dark'
   const [inputValue, setInputValue] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [filter, setFilter] = useState('all'); // 'all', 'active', 'completed'
   const [sortByDueDate, setSortByDueDate] = useState(false);
-  
-  // Apply theme to the document body
-  useEffect(() => {
-    document.body.className = theme;
-  }, [theme]);
-  
-  const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
-  };
 
   const addTodo = () => {
     if (inputValue.trim() !== '') {
@@ -70,14 +62,11 @@ function App() {
   return (
     <div className={`App ${theme}`}>
       <div className="todo-app">
-        <div className="app-header">
-          <h1>TODO App</h1>
-          <button 
-            className="theme-toggle" 
-            onClick={toggleTheme}
-            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-          >
-            {theme === 'light' ? '🌙' : '☀️'}
+        <h1>TODO App</h1>
+        
+        <div className="theme-toggle">
+          <button onClick={toggleTheme}>
+            {theme === 'light' ? '🌙 Dark Mode' : '☀️ Light Mode'}
           </button>
         </div>
         
