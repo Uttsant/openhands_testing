@@ -1,23 +1,98 @@
+:root {
+  /* Light theme variables */
+  --light-bg-color: #f5f5f5;
+  --light-app-bg: white;
+  --light-text-color: #333;
+  --light-border-color: #ddd;
+  --light-shadow: rgba(0, 0, 0, 0.1);
+  --light-completed-color: #888;
+  --light-hover-bg: #f5f5f5;
+  
+  /* Dark theme variables */
+  --dark-bg-color: #222;
+  --dark-app-bg: #333;
+  --dark-text-color: #eee;
+  --dark-border-color: #555;
+  --dark-shadow: rgba(0, 0, 0, 0.3);
+  --dark-completed-color: #aaa;
+  --dark-hover-bg: #444;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s ease;
+}
+
+body.light {
+  background-color: var(--light-bg-color);
+  color: var(--light-text-color);
+}
+
+body.dark {
+  background-color: var(--dark-bg-color);
+  color: var(--dark-text-color);
+}
+
 .App {
   display: flex;
   justify-content: center;
   padding: 20px;
   font-family: Arial, sans-serif;
+  transition: all 0.3s ease;
 }
 
 .todo-app {
   width: 500px;
   max-width: 100%;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
-  background-color: white;
+  transition: all 0.3s ease;
+}
+
+.light .todo-app {
+  background-color: var(--light-app-bg);
+  box-shadow: 0 2px 10px var(--light-shadow);
+  color: var(--light-text-color);
+}
+
+.dark .todo-app {
+  background-color: var(--dark-app-bg);
+  box-shadow: 0 2px 10px var(--dark-shadow);
+  color: var(--dark-text-color);
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 20px;
+  margin: 0;
+  color: inherit;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.light .theme-toggle {
+  background-color: #f0f0f0;
+}
+
+.dark .theme-toggle {
+  background-color: #444;
 }
 
 .add-todo {
@@ -28,19 +103,43 @@ h1 {
 .add-todo .text-input {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px 0 0 0;
   font-size: 16px;
   border-bottom: none;
+  border-radius: 4px 0 0 0;
+  transition: all 0.3s ease;
+}
+
+.light .add-todo .text-input {
+  border: 1px solid var(--light-border-color);
+  background-color: var(--light-app-bg);
+  color: var(--light-text-color);
+}
+
+.dark .add-todo .text-input {
+  border: 1px solid var(--dark-border-color);
+  background-color: var(--dark-app-bg);
+  color: var(--dark-text-color);
 }
 
 .add-todo .date-input {
   flex: 0.5;
   padding: 10px;
-  border: 1px solid #ddd;
   border-radius: 0;
   font-size: 16px;
   border-left: none;
+  transition: all 0.3s ease;
+}
+
+.light .add-todo .date-input {
+  border: 1px solid var(--light-border-color);
+  background-color: var(--light-app-bg);
+  color: var(--light-text-color);
+}
+
+.dark .add-todo .date-input {
+  border: 1px solid var(--dark-border-color);
+  background-color: var(--dark-app-bg);
+  color: var(--dark-text-color);
 }
 
 .add-todo button {
@@ -67,16 +166,29 @@ h1 {
   display: flex;
   align-items: center;
   padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.light .todo-list li {
   border-bottom: 1px solid #eee;
+}
+
+.dark .todo-list li {
+  border-bottom: 1px solid #444;
 }
 
 .todo-list li:last-child {
   border-bottom: none;
 }
 
-.todo-list li.completed span {
+.light .todo-list li.completed span {
   text-decoration: line-through;
-  color: #888;
+  color: var(--light-completed-color);
+}
+
+.dark .todo-list li.completed span {
+  text-decoration: line-through;
+  color: var(--dark-completed-color);
 }
 
 .todo-list li input[type="checkbox"] {
@@ -95,8 +207,16 @@ h1 {
 
 .todo-list li .todo-due-date {
   font-size: 12px;
-  color: #888;
   margin-top: 4px;
+  transition: color 0.3s ease;
+}
+
+.light .todo-list li .todo-due-date {
+  color: var(--light-completed-color);
+}
+
+.dark .todo-list li .todo-due-date {
+  color: var(--dark-completed-color);
 }
 
 .todo-list li button {
@@ -118,9 +238,17 @@ h1 {
   align-items: center;
   padding-top: 15px;
   margin-top: 15px;
-  border-top: 1px solid #eee;
   font-size: 14px;
   flex-wrap: wrap;
+  transition: all 0.3s ease;
+}
+
+.light .todo-footer {
+  border-top: 1px solid #eee;
+}
+
+.dark .todo-footer {
+  border-top: 1px solid #444;
 }
 
 .filters {
@@ -133,24 +261,51 @@ h1 {
 .filters button {
   padding: 5px 10px;
   background-color: transparent;
-  border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.filters button.active {
+.light .filters button {
+  border: 1px solid var(--light-border-color);
+  color: var(--light-text-color);
+}
+
+.dark .filters button {
+  border: 1px solid var(--dark-border-color);
+  color: var(--dark-text-color);
+}
+
+.light .filters button.active {
   border-color: #4caf50;
   color: #4caf50;
+}
+
+.dark .filters button.active {
+  border-color: #6abf6e;
+  color: #6abf6e;
 }
 
 .todo-footer button:last-child {
   padding: 5px 10px;
   background-color: transparent;
-  border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.todo-footer button:last-child:hover {
-  background-color: #f5f5f5;
+.light .todo-footer button:last-child {
+  border: 1px solid var(--light-border-color);
+}
+
+.dark .todo-footer button:last-child {
+  border: 1px solid var(--dark-border-color);
+}
+
+.light .todo-footer button:last-child:hover {
+  background-color: var(--light-hover-bg);
+}
+
+.dark .todo-footer button:last-child:hover {
+  background-color: var(--dark-hover-bg);
 }
